@@ -1,16 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const conectarDB = require('./config/db');
-
 dotenv.config();
-conectarDB();
+
+require('./config/db');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/auth', require('./routes/auth'));
 app.use('/api/productos', require('./routes/productos'));
 
 app.get('/', (req, res) => {

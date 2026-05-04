@@ -35,7 +35,7 @@ export default function ListaProductos() {
     if (!window.confirm('¿Eliminar este producto?')) return;
     try {
       await eliminarProducto(id);
-      setProductos((prev) => prev.filter((p) => p._id !== id));
+      setProductos((prev) => prev.filter((p) => p.id !== id));
     } catch {
       setError('Error al eliminar el producto.');
     }
@@ -81,14 +81,14 @@ export default function ListaProductos() {
             </thead>
             <tbody>
               {productos.map((p) => (
-                <tr key={p._id}>
+                <tr key={p.id}>
                   <td>{p.nombre}</td>
                   <td><span className="badge">{p.categoria}</span></td>
                   <td>S/ {Number(p.precio).toFixed(2)}</td>
                   <td className={p.stock <= 5 ? 'stock-low' : 'stock-ok'}>{p.stock}</td>
                   <td>
-                    <Link to={`/editar/${p._id}`} className="btn-icon">✏ Editar</Link>
-                    <button className="btn-icon danger" onClick={() => handleEliminar(p._id)}>✕ Eliminar</button>
+                    <Link to={`/editar/${p.id}`} className="btn-icon">✏ Editar</Link>
+                    <button className="btn-icon danger" onClick={() => handleEliminar(p.id)}>✕ Eliminar</button>
                   </td>
                 </tr>
               ))}

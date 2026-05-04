@@ -253,3 +253,26 @@ tbody tr:hover { background: rgba(0,255,136,0.03); }
   font-family: var(--font-display);
   font-size: 1.1rem;
 }
+
+/* LOGIN */
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--bg);
+}
+.login-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.subtitle {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
