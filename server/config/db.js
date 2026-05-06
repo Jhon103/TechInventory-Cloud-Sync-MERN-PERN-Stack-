@@ -1,12 +1,14 @@
 const { Pool } = require('pg');
 const bcryptjs = require('bcryptjs');
 
-if (!process.env.DATABASE_URL) {
-  console.error('DATABASE_URL no definida. Configura la variable de entorno.');
+const connectionString = process.env.POSTGRES_URL || process.env.DATABASE_URL;
+
+if (!connectionString) {
+  console.error('POSTGRES_URL/DATABASE_URL no definida. Configura la variable de entorno.');
 }
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString,
   ssl: { rejectUnauthorized: false },
 });
 
