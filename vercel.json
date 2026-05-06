@@ -1,5 +1,8 @@
 {
-  "buildCommand": "cd frontend && npm install && npm run build && mkdir -p ../public && cp -r dist/* ../public/",
-  "outputDirectory": "public",
-  "installCommand": "npm install && cd frontend && npm install"
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api" }
+  ]
 }
