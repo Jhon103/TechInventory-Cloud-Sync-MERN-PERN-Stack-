@@ -1,16 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 
-let jwt;
-try {
-  jwt = require('jsonwebtoken');
-} catch {
-  jwt = null;
-}
-
-// POST /api/auth/login
 router.post('/login', async (req, res) => {
   try {
     const { usuario, password } = req.body;
@@ -24,19 +17,16 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
-    const ok = await bcrypt.compare(password, result.rows[0].password);
+    const ok = await bcryptjs.compare(password, result.rows[0].password);
     if (!ok) {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
-    let token = null;
-    if (jwt) {
-      token = jwt.sign(
-        { usuario: result.rows[0].usuario },
-        process.env.JWT_SECRET || 'secreto_super_seguro_123',
-        { expiresIn: '1h' }
-      );
-    }
+    const token = jwt.sign(
+      { usuario: result.rows[0].usuario },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
 
     res.json({ ok: true, usuario: result.rows[0].usuario, token });
   } catch (error) {

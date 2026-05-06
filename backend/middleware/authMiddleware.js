@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {
-  // El token suele venir en el header Authorization: Bearer <token>
   const authHeader = req.header('Authorization');
   if (!authHeader) {
     return res.status(401).json({ mensaje: 'Acceso denegado. No hay token provisto.' });
@@ -13,7 +12,7 @@ module.exports = function (req, res, next) {
   }
 
   try {
-    const verified = jwt.verify(token, process.env.JWT_SECRET || 'secreto_super_seguro_123');
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
     req.usuario = verified;
     next();
   } catch (error) {
