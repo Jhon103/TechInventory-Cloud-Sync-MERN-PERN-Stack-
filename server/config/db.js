@@ -8,7 +8,7 @@ if (!rawUrl) {
 }
 
 const url = new URL(rawUrl);
-url.searchParams.set('sslmode', 'require');
+url.searchParams.delete('sslmode');
 
 const pool = new Pool({
   connectionString: url.toString(),
